@@ -38,13 +38,24 @@ RUN make install
 # clean up src of dependencies
 RUN rm -rf /home/delft3dfm_compile/dependencies
 
-
 ## compiling delft3dfm
+######################################################################################
+# For now this is using a zipped file of source code that was downloaded
+# prior to building the docker image, because of issues with subversion
+# Would be good to download a specific tagged version of delft3dfm directly here eventually
+######################################################################################
 # copy the zipped delft3dfm source code into the container
+######################################################################################
+# COPY delft3dfm_source/delft3dfm_140221.tar.gz /home/delft3dfm_compile/delft3dfm_140221.tar.gz
+# WORKDIR /home/delft3dfm_compile
+# RUN tar -xf delft3dfm_140221.tar.gz && rm delft3dfm_140221.tar.gz
+# WORKDIR /home/delft3dfm_compile/delft3dfm_140221/src/
+######################################################################################
 COPY delft3dfm_source/delft3dfm_68819.tar.gz /home/delft3dfm_compile/delft3dfm_68819.tar.gz
 WORKDIR /home/delft3dfm_compile
 RUN tar -xf delft3dfm_68819.tar.gz && rm delft3dfm_68819.tar.gz
 WORKDIR /home/delft3dfm_compile/delft3dfm_68819/src/
+
 
 # copy missing files: fix for known issue
 RUN cp third_party_open/swan/src/*.[fF]* third_party_open/swan/swan_mpi && cp third_party_open/swan/src/*.[fF]* third_party_open/swan/swan_omp

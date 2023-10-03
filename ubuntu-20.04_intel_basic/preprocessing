@@ -9,6 +9,7 @@ sudo apt-get -y install subversion
 # pull the delft3dfm svn repositry - replace the username and password placeholders with your oss.deltares.nl credentials 
 svn checkout https://svn.oss.deltares.nl/repos/delft3d/tags/delft3dfm/68819/ delft3dfm_68819 --username <username> --password <password>
 
+
 # zip the repositry for faster and reliable copying into docker-container filesystem and place it in the delft3dfm_source dir available for the docker instance during build
 tar -czvf delft3dfm_68819.tar.gz delft3dfm_68819
 mkdir delft3dfm_source && mv delft3dfm_68819.tar.gz delft3dfm_source/
@@ -17,3 +18,22 @@ rm -rf delft3dfm_68819
 
 # create a scratch dir that is mapped to /home/scratch in the docker container to facilitate model runs; note: use the mapped dir only to copy files between host and the docker-container. run the model in native (non-mapped) filesystem for best performance
 mkdir scratch
+
+
+########################################################################################################
+# my version
+# need to make the tag an argument rather than hardcoded so that we can easily build image for different 
+# 
+# This essentially downloads the code outside of docker because of issues with subversion from within docker
+# then copy that code inside the container when building
+#
+########################################################################################################
+
+# get the code
+svn checkout https://svn.oss.deltares.nl/repos/delft3d/tags/delft3dfm/140221/ delft3dfm_140221 --username simon@X --password uluwatu32
+# zip the repositry for faster and reliable copying into docker-container filesystem and place it in the delft3dfm_source dir available for the docker instance during build
+tar -czvf delft3dfm_140221.tar.gz delft3dfm_140221
+mkdir delft3dfm_source
+mv delft3dfm_140221.tar.gz delft3dfm_source/
+# remove the downloaded repositry from host, if desired
+rm -rf delft3dfm_140221

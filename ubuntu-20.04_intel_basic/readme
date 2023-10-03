@@ -1,6 +1,40 @@
 1. follow the steps in ./preprocessing
+
 2. build the docker container by navigating into the root proj dir (./) via the command "docker build --network=host -t delft3dfm ."
    note: you may replace delft3dfm with any other name desired for the docker image, but make sure to use the new name in subsequent steps
+
 3. run the docker container with the compiled delft3dfm program (located in /opt/delft3dfm inside the container) via the command "docker run -it --rm -v %cd%/scratch:/home/scratch"
    note: above command is for running the container via MS-CMD; for MS-PS replace %cd% with ${PWD}; and for GNU-LINUX replace %cd% with $(pwd)
    the flag --rm removes the container and its not mapped contents (not in ./scratch). either copy all desired files to this location or remove the flag before running it.
+
+
+
+
+##########################################################################################
+# 1. steps in pre-processing : download source code
+##########################################################################################
+# get the code
+svn checkout https://svn.oss.deltares.nl/repos/delft3d/tags/delft3dfm/140221/ delft3dfm_140221 --username simon@X --password uluwatu32
+# zip the repositry for faster and reliable copying into docker-container filesystem and place it in the delft3dfm_source dir available for the docker instance during build
+tar -czvf delft3dfm_140221.tar.gz delft3dfm_140221
+mkdir delft3dfm_source
+mv delft3dfm_140221.tar.gz delft3dfm_source/
+# remove the downloaded repositry from host, if desired
+rm -rf delft3dfm_140221
+
+##########################################################################################
+# 2. build docker and tag it with version you downloaded
+##########################################################################################
+docker build --network=host -t delft3dfm:140221 .
+docker build --network=host -t delft3dfm:68819 .
+
+##########################################################################################
+# 3. run the docker container with the compiled delft3dfm program
+##########################################################################################
+
+
+
+above works for 68819 only
+
+>> check ./src/README or ./src/cmake/README for details on compiling the most recent versions - see README.md from code folder
+
