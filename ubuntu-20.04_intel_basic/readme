@@ -14,7 +14,7 @@
 # 1. steps in pre-processing : download source code
 ##########################################################################################
 # get the code
-svn checkout https://svn.oss.deltares.nl/repos/delft3d/tags/delft3dfm/140221/ delft3dfm_140221 --username simon@X --password uluwatu32
+svn checkout https://svn.oss.deltares.nl/repos/delft3d/tags/delft3dfm/140221/ delft3dfm_140221 --username xxxx --password xxxx
 # zip the repositry for faster and reliable copying into docker-container filesystem and place it in the delft3dfm_source dir available for the docker instance during build
 tar -czvf delft3dfm_140221.tar.gz delft3dfm_140221
 mkdir delft3dfm_source

@@ -37,7 +37,7 @@ Run the examples:
 `cd /home/delft3dfm_compile/delft3dfm_68819/examples/01_standard`
 
 The compiled binaries and shell scripts are saved in `/opt/delft3dfm/bin/***`
-so paths in the bash scripts to run the examples need to be updated
+so paths in the bash scripts to run the examples (`run.sh` , `run_parallel.sh`) need to be updated
 
 Change from 
 ```
@@ -68,3 +68,4 @@ using CMAKE
 see src/README
 cmake/README
 
+`"docker build --network=host -t delft3dfm:140221 -f Dockerfile_CMAKE."`
