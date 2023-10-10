@@ -61,15 +61,20 @@ WORKDIR /home/delft3dfm_compile/delft3dfm_140221/src/
 # copy missing files: fix for known issue
 RUN cp third_party_open/swan/src/*.[fF]* third_party_open/swan/swan_mpi && cp third_party_open/swan/src/*.[fF]* third_party_open/swan/swan_omp
 
+# Deltares recommends using build.sh but that has some hard-coded scripts (build_h6c7.sh) that fails
+# However the build works when using ./build_gnu.sh so we use that (need to install gfortran first)
+RUN apt-get install -y gfortran
+RUN ./build_gnu.sh
+
 # stop here for now
 
 # # configure the build
 # RUN ./autogen.sh && ./configure CC=icc CXX=icpc FC=ifort MPICXX=mpiicpc F77=ifort MPIF77=mpiifort MPIFC=mpiifort CPPFLAGS="-I/usr/local/include" CFLAGS="-m64 -diag-disable=10441" NETCDF_CFLAGS="-I/usr/local/include" NETCDF_LIBS="-L/usr/local/lib -lnetcdf" --prefix=/opt/delft3dfm
 
-# # build
+# # build no relevant for here
 # RUN source /etc/profile.d/modules.sh && CC=icc CXX=icpc FC=ifort MPICXX=mpiicpc F77=ifort MPIF77=mpiifort MPIFC=mpiifort CPPFLAGS="-I/usr/local/include" CFLAGS="-m64 -diag-disable=10441" make ds-install
 # RUN source /etc/profile.d/modules.sh && CC=icc CXX=icpc FC=ifort MPICXX=mpiicpc F77=ifort MPIF77=mpiifort MPIFC=mpiifort CPPFLAGS="-I/usr/local/include" CFLAGS="-m64 -diag-disable=10441" make ds-install -C engines_gpl/dflowfm
 
 
 # # create a scratch dir for model runs
-# RUN mkdir /home/scratch
+RUN mkdir /home/scratch

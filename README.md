@@ -68,4 +68,14 @@ using CMAKE
 see src/README
 cmake/README
 
-`"docker build --network=host -t delft3dfm:140221 -f Dockerfile_CMAKE."`
+`"docker build --network=host -t delft3dfm:140221 -f Dockerfile_CMAKE ."`
+
+
+use build.sh that uses some of the build scripts in /src
+trying ./build_gnu.sh
+need to install gfortran `apt-get install gfortran` (see Dockerfile_CMAKE)
+
+The bash scripts to run the different modules are now saved here : 
+`/home/delft3dfm_compile/delft3dfm_140221/src/bin`
+
+This path should be changed in bash scripts provided to run examples.
